@@ -51,6 +51,7 @@ public class NerfGun extends Weapon {
         image = ItemSpriteSheet.NERF_GUN;
         defaultAction = AC_SHOOT;
         usesTargeting = true;
+        levelKnown = true;
     }
 
     @Override
@@ -102,22 +103,22 @@ public class NerfGun extends Weapon {
     public int min(int lvl){
         switch (mode){
             case NORMAL: default:
-                return Math.round(1 + lvl*1.5f);
+                return Math.round(0 + lvl*1f);
             case RAPID:
-                return 1 + lvl / 2;
+                return 0 + lvl / 3;
             case DISC:
-                return 3 + lvl*2;
+                return Math.round(2 + lvl*1.5f);
         }
     }
 
     public int max(int lvl){
         switch (mode){
             case NORMAL: default:
-                return 10 + lvl*3;
+                return 8 + lvl*2;
             case RAPID:
-                return Math.round(6 + lvl*0.75f);
+                return Math.round(5 + lvl*0.5f);
             case DISC:
-                return 15 + lvl*4;
+                return Math.round(11 + lvl*2.5f);
         }
     }
 
@@ -210,7 +211,7 @@ public class NerfGun extends Weapon {
             hero.sprite.operate(hero.pos, () -> {
                 hero.sprite.idle();
                 curCharges = maxCharges();
-                Warp.inflict(15, 2);
+                Warp.inflict(20, 3);
                 updateQuickslot();
                 enchantment = null;
                 Sample.INSTANCE.play(Assets.Sounds.ATK_CROSSBOW);
@@ -243,7 +244,7 @@ public class NerfGun extends Weapon {
                 curUser.spendAndNext(baseDelay(curUser));
                 curUser.sprite.idle();
                 curCharges = maxCharges();
-                Warp.inflict(10, 1.5f);
+                Warp.inflict(15, 2f);
                 enchantment = null;
                 updateQuickslot();
                 Sample.INSTANCE.play(Assets.Sounds.ATK_CROSSBOW);

@@ -45,7 +45,7 @@ public class WarpPile {
 
     //the (1/X) chance for effect to come out every time the warp decays
     public static int effectTimer(float warpAmount){
-        return (int) (30 - warpAmount / 10f);
+        return (int) (30 - warpAmount / 7.5f);
     }
 
     public interface WarpEffect extends Callback {
@@ -206,8 +206,9 @@ public class WarpPile {
     public static class SpawnEffect implements WarpEffect {
         @Override
         public void doEffect(Hero target, float warpAmount) {
-            for (int i = 0; i < 1 + warpAmount / 30; i++)
-                Dungeon.level.spawnMob(35);
+            if (Dungeon.level.mobLimit() > 0)
+                for (int i = 0; i < 1 + warpAmount / 30; i++)
+                    Dungeon.level.spawnMob(35);
         }
     }
 
